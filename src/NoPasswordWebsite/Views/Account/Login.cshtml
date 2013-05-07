@@ -1,0 +1,59 @@
+﻿@model NoPasswordWebsite.Models.LoginModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="loginForm">
+<h2>Use a local account to log in.</h2>
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Log in Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Password)
+                @Html.TextBoxFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </li>
+            <li>
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+            </li>
+            <li>
+                Logging in with the remember me checkbox checked will save a authentication cookie 
+                on this PC that will automatically log you in onto this site if you return here within a week. 
+                This cookie will then be extended for another week. So if this is a public PC don't click this!
+            </li>
+            <li>
+                @Html.CheckBoxFor(m => m.ResetOld)
+                @Html.LabelFor(m => m.ResetOld, new { @class = "checkbox" })
+            </li>
+            <li>
+                Authentication cookies saved when you click the remember me checkbox can be stolen. 
+                As an extra precausion you can reset old cookie by clicking this checkbox. 
+                Old cookies can then not be used to log in anymore.
+            </li>
+        </ol>
+        <input type="submit" value="Log in" />
+    </fieldset>
+    <p>
+        @Html.ActionLink("Register", "Register") if you don't have an account.
+    </p>
+}
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
